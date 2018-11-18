@@ -17,23 +17,25 @@ class LinkedList {
         }
     }
 
-    Push(value) {
-        let node = new Node(value),
-            CurrentNode = this.head;
+    Push() {
+        let args = arguments;
 
-        if (!CurrentNode) {
-            this.head = node;
-            this.length++;
+        for (let i = 0; i < args.length; i++) {
+            let node = new Node(args[i]);
+            let CurrentNode = this.head;
 
-            return node;
-        }
-        else {
-            while (CurrentNode.next) {
-                CurrentNode = CurrentNode.next;
+            if (!CurrentNode) {
+                this.head = node;
+                this.length++;
             }
-            CurrentNode.next = node;
-            this.length++;
-            return node;
+            else {
+                while (CurrentNode.next) {
+                    CurrentNode = CurrentNode.next;
+                }
+
+                CurrentNode.next = node;
+                this.length++;
+            }
         }
     }
 
@@ -97,26 +99,23 @@ class LinkedList {
         return ShiftedNode;
     }
 
-    Unshift(value) {
+    Unshift() {
 
-        let node = new Node(value),
-            NewSecondNode = this.head,
-            NewFirstNode = null;
+        let args = arguments;
 
-        if (!NewSecondNode) {
+        for (let i = 0; i < args.length; i++) {
+            let node = new Node(args[i]);
+            let NewSecondNode = this.head;
+
+            if (!NewSecondNode) {
+                this.head = node;
+                this.length++;
+            }
+
+            node.next = NewSecondNode;
             this.head = node;
             this.length++;
-            NewFirstNode = node;
-
-            return NewFirstNode;
         }
-
-        node.next = NewSecondNode;
-        this.head = node;
-        this.length++;
-        NewFirstNode = node;
-
-        return NewFirstNode;
     }
 
     Remove(position) {
@@ -284,18 +283,20 @@ class LinkedList {
 
 let list = new LinkedList(1, 2, 3, 4);
 list.Push("test");
-list.Push("test2");
+list.Push("test2", 1, 3, "Push4Test");
 list.Pop();
 list.Shift();
 list.Shift();
 list.Unshift(2);
-list.Unshift(1);
+list.Unshift(1, 5, "UnshiftOneMoreTest");
 list.Insert(3, "InsertTest");
 list.Remove(2);
 list.Each(4);
 list.ShowLinkedList();
 console.log("Обычный список:")
+//UnshiftOneMoreTest, 5, InsertTest, 2, 3, 4, test, test2, 1, 3
 list.Foreach();
 list.Reverse();
 console.log("Обратный список:");
+//3, 1, test2, test, 4, 3, 2, InsertTest, 5, UnshiftOneMoreTest
 list.Foreach();
